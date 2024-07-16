@@ -1,8 +1,10 @@
 package encurtador.urlshortner.service;
 
+import encurtador.urlshortner.dto.UrlDto;
 import encurtador.urlshortner.entity.Url;
 import encurtador.urlshortner.exception.ApplicationException;
 import encurtador.urlshortner.repository.UrlRepository;
+import encurtador.urlshortner.util.QrcodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,21 @@ public class DefaultUrlService implements Urlservice {
     private UrlRepository urlRepository;
 
     @Override
-    public Url save(Url url) {
+    public UrlDto save(UrlDto urlDto) {
+
+        Url url= new Url();
+        url.setFullUrl(urlDto.getFullUrl());
         url.setShortnerUrl(shorten());
         url.setExpiredAt(LocalDateTime.now().plusMinutes(10));
-        return urlRepository.save(url);
+
+        Url novo =urlRepository.save(url);
+
+        urlDto.setId(novo.getId());
+        urlDto.setShortnerUrl(novo.getShortnerUrl());
+        urlDto.setExpiredAt(novo.getExpiredAt());
+        urlDto.setBarcode(QrcodeUtil.generateByteCode(novo.getFullUrl()));
+
+         return urlDto;
     }
     @Override
     public String redirectToPage(String url){
@@ -39,4 +52,6 @@ public class DefaultUrlService implements Urlservice {
       List<Url> expiredUrls = urlRepository.findAll().stream().filter(url -> url.getExpiredAt().isBefore(LocalDateTime.now())).toList();
       expiredUrls.forEach(url -> urlRepository.delete(url));
     }
+
+
 }

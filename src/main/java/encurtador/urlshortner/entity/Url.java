@@ -2,9 +2,6 @@ package encurtador.urlshortner.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.stereotype.Indexed;
-
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Data
@@ -24,7 +21,6 @@ public class Url {
 
     @Column(name = "expiredAt")
     private LocalDateTime expiredAt;
-
 
 
 }
