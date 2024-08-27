@@ -30,11 +30,4 @@ public class UrlController {
         return new ModelAndView("redirect:".concat(fullUrl));
     }
 
-    @GetMapping(value = "/code")
-    public Url barbecueEAN13Barcode() throws Exception {
-        Url url = new Url();
-
-        return url;
-    }
-
 }

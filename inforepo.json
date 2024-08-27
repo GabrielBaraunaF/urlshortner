@@ -1,0 +1,9 @@
+{
+  "name": "encurtador de url",
+  "description": "Encurtador de url, com tempo de expiração e qrCode",
+  "language": "Java",
+  "url": "https://i.imgur.com/WoGsZlg.png",
+  "status": "Concluido",
+  "site": "https://iurisant.github.io/clima_tempo/",
+  "repositories": "https://github.com/GabrielBaraunaF/urlshortner"
+}
